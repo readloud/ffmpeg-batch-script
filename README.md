@@ -2,8 +2,6 @@
 
 A Windows batch script for FFmpeg allows you to automate media processing for multiple files simultaneously. To create one, write your commands in a text editor like Notepad and save the file with a .bat or .cmd extension. 
 
-[![Watch the video](https://youtube.com)](https://www.youtube.com/watch?v=ity8BSbIulU)
-
 1. Basic Batch Scripts
 Convert All Files in a Folder: This script processes every .mp4 file in the current directory and converts it to .mkv.
 ~~~batch
