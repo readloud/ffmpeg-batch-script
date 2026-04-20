@@ -1,0 +1,24 @@
+Basic Blinking Effect
+The most common method uses the mod (modulo) function on the frame number (n) or time (t) to toggle the text on and off at regular intervals. 
+ffmpeg -i input.mp4 -vf "drawtext=text='FLASHING':fontcolor=white:fontsize=50:x=(w-tw)/2:y=(h-th)/2:enable='lt(mod(n\,10)\,5)'" output.mp4
+Breakdown:
+enable='lt(mod(n\,10)\,5)': This tells FFmpeg to display the text only when the current frame number divided by 10 has a remainder less than 5. In a 30fps video, this creates a blink 3 times per second (5 frames on, 5 frames off).
+x=(w-tw)/2:y=(h-th)/2: Centers the text horizontally and vertically. 
+
+Advanced Variations
+Time-Based Blinking: Use t (time in seconds) instead of n (frames) for a consistent blink rate regardless of frame rate.
+ffmpeg -i input.mp4 -vf "drawtext=text='FLASHING':fontcolor=white:fontsize=50:x=(w-tw)/2:y=(h-th)/2:enable='lt(mod(t\,1)\,0.5)'" output1.mp4
+
+enable='lt(mod(t\,1)\,0.5)' (1 second cycle: 0.5s on, 0.5s off).
+Rapid Flicker: Decrease the divisor to speed up the flash.
+ffmpeg -i input.mp4 -vf "drawtext=text='FLASHING':fontcolor=white:fontsize=50:x=(w-tw)/2:y=(h-th)/2:enable='lt(mod(n\,4)\,2)'" output2.mp4
+
+enable='lt(mod(n\,4)\,2)' (very fast flicker).
+Blinking within a Specific Range: Combine with the between function to start and stop the effect.
+ffmpeg -i input.mp4 -vf "drawtext=text='FLASHING':fontcolor=white:fontsize=50:x=(w-tw)/2:y=(h-th)/2:enable='between(t,2,8)*lt(mod(t,0.5),0.25)'" output3.mp4
+
+enable='between(t,2,8)*lt(mod(t,0.5),0.25)' (blinks between second 2 and 8). 
+
+Requirements
+Font Library: Ensure your FFmpeg version is compiled with --enable-libfreetype to use drawtext.
+Font Path: If the command fails, you may need to specify the full path to a .ttf file using fontfile=/path/to/font.ttf. 
