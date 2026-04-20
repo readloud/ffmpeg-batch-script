@@ -1,0 +1,7 @@
+scene2|Jasa Pembuatan Akun Online Shop|Jasa Pembuatan Akun Online Shop
+scene3|Online Shop Anda, Gateway Menuju Pelanggan|Online Shop Anda, Gateway Menuju Pelanggan
+scene5|Pendaftaran & verifikasi akun seller.|Pendaftaran & verifikasi akun seller.
+scene6|Setup profil toko lengkap (logo, banner, deskripsi).|Setup profil toko lengkap (logo, banner, deskripsi).
+scene7|Kategorisasi produk yang rapi.|Kategorisasi produk yang rapi.
+scene8|Input produk awal (hingga 10 produk).|Input produk awal (hingga 10 produk).
+scene9|Panduan dasar operasional toko.|Panduan dasar operasional toko.

