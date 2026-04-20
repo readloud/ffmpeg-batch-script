@@ -1,0 +1,12 @@
+# Untuk gTTS (Recommended untuk Bahasa Indonesia)
+gtts>=2.3.0
+moviepy>=1.0.3
+
+# Untuk F5-TTS (Opsional, butuh sample voice)
+# f5-tts>=0.0.1
+# torch>=2.0.0
+# torchaudio>=2.0.0
+# huggingface-hub>=0.20.0
+
+# Utility
+ffmpeg-python>=0.2.0

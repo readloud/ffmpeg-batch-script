@@ -1,0 +1,5 @@
+python -m pip install --upgrade pip setuptools wheel
+pip install "numpy<2.0.0"
+pip install kokoro --no-deps
+pip install soundfile phonemizer-fork
+pip install onnxruntime-gpu --extra-index-url https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-12/pypi/simple/
