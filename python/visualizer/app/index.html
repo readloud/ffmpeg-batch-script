@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>READLOUD VISUALIZER - Audio/Video Processing Studio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <span class="logo-icon">🎬</span>
+                <span class="logo-text">READLOUD<span>VISUALIZER</span></span>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active" data-page="dashboard">
+                    <span class="nav-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" data-page="download">
+                    <span class="nav-icon">🎵</span>
+                    <span>Download Audio</span>
+                </a>
+                <a href="#" class="nav-item" data-page="waveform">
+                    <span class="nav-icon">🎬</span>
+                    <span>Waveform Video</span>
+                </a>
+                <a href="#" class="nav-item" data-page="bulk">
+                    <span class="nav-icon">📦</span>
+                    <span>Bulk Download</span>
+                </a>
+                <a href="#" class="nav-item" data-page="tools">
+                    <span class="nav-icon">🎛️</span>
+                    <span>AV Tools</span>
+                </a>
+                <a href="#" class="nav-item" data-page="record">
+                    <span class="nav-icon">📹</span>
+                    <span>Recorder</span>
+                </a>
+                <a href="#" class="nav-item" data-page="transcribe">
+                    <span class="nav-icon">📝</span>
+                    <span>Transcribe</span>
+                </a>
+                <a href="#" class="nav-item" data-page="tts">
+                    <span class="nav-icon">🗣️</span>
+                    <span>TTS</span>
+                </a>
+                <a href="#" class="nav-item" data-page="slideshow">
+                    <span class="nav-icon">🖼️</span>
+                    <span>Slideshow</span>
+                </a>
+                <a href="#" class="nav-item" data-page="settings">
+                    <span class="nav-icon">⚙️</span>
+                    <span>Settings</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="status-badge">
+                    <span class="status-dot"></span>
+                    <span>API Ready</span>
+                </div>
+                <div class="version">v2.0.0</div>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Page -->
+            <div class="page" id="page-dashboard">
+                <div class="page-header">
+                    <h1>Dashboard</h1>
+                    <p>Selamat datang di READLOUD Visualizer Pro</p>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">🎵</div>
+                        <div class="stat-info">
+                            <h3 id="statMusic">0</h3>
+                            <p>Audio Files</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🎬</div>
+                        <div class="stat-info">
+                            <h3 id="statVideo">0</h3>
+                            <p>Video Files</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🖼️</div>
+                        <div class="stat-info">
+                            <h3 id="statImage">0</h3>
+                            <p>Images</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📤</div>
+                        <div class="stat-info">
+                            <h3 id="statOutput">0</h3>
+                            <p>Output Files</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recent-section">
+                    <h2>Recent Activities</h2>
+                    <div class="activity-list" id="activityList">
+                        <div class="activity-item">
+                            <span class="activity-icon">✅</span>
+                            <span>System ready for processing</span>
+                            <span class="activity-time">Just now</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Download Page -->
+            <div class="page" id="page-download" style="display: none;">
+                <div class="page-header">
+                    <h1>Download Audio MP3</h1>
+                    <p>Download audio dari YouTube dengan kualitas terbaik</p>
+                </div>
+                
+                <div class="card">
+                    <div class="form-group">
+                        <label>YouTube URL</label>
+                        <input type="text" id="downloadUrl" placeholder="https://www.youtube.com/watch?v=..." class="form-control">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Format</label>
+                            <select id="downloadFormat" class="form-control">
+                                <option value="mp3">MP3 (320kbps)</option>
+                                <option value="m4a">M4A (AAC)</option>
+                                <option value="opus">Opus</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Output Folder</label>
+                            <select id="downloadFolder" class="form-control">
+                                <option value="music">Music Library</option>
+                                <option value="downloads">Downloads</option>
+                                <option value="custom">Custom Path</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button id="downloadBtn" class="btn btn-primary" onclick="startDownload()">
+                        <span class="btn-icon">⬇️</span>
+                        Download MP3
+                    </button>
+                    
+                    <div id="downloadProgress" class="progress-container" style="display: none;">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="downloadFill">0%</div>
+                        </div>
+                    </div>
+                    <div id="downloadLog" class="log-console"></div>
+                </div>
+            </div>
+            
+            <!-- Waveform Page -->
+            <div class="page" id="page-waveform" style="display: none;">
+                <div class="page-header">
+                    <h1>Waveform Video Creator</h1>
+                    <p>Buat video visualizer dari audio</p>
+                </div>
+                
+                <div class="card">
+                    <div class="form-group">
+                        <label>YouTube URL atau Upload MP3</label>
+                        <div class="tab-buttons">
+                            <button class="tab-btn active" data-tab="url">From URL</button>
+                            <button class="tab-btn" data-tab="upload">Upload File</button>
+                        </div>
+                    </div>
+                    
+                    <div id="urlTab" class="tab-content active">
+                        <input type="text" id="waveformUrl" placeholder="https://www.youtube.com/watch?v=..." class="form-control">
+                    </div>
+                    <div id="uploadTab" class="tab-content" style="display: none;">
+                        <input type="file" id="waveformFile" accept=".mp3,.wav,.m4a" class="form-control">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Output Format</label>
+                            <select id="waveformFormat" class="form-control">
+                                <option value="yt">YouTube (1920x1080)</option>
+                                <option value="shorts">Reels/Shorts (1080x1920)</option>
+                                <option value="square">Square (1080x1080)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Visual Style</label>
+                            <select id="visualStyle" class="form-control">
+                                <option value="waveform">Waveform Classic</option>
+                                <option value="bars">Bars Spectrum</option>
+                                <option value="circle">Circular Visualizer</option>
+                                <option value="particle">Particle Effect</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Text Color</label>
+                            <input type="color" id="textColor" value="#ffffff" class="form-control" style="height: 45px;">
+                        </div>
+                        <div class="form-group">
+                            <label>Background Color</label>
+                            <input type="color" id="bgColor" value="#1a1a2e" class="form-control" style="height: 45px;">
+                        </div>
+                    </div>
+                    
+                    <button id="waveformBtn" class="btn btn-primary" onclick="createWaveform()">
+                        <span class="btn-icon">🎬</span>
+                        Create Waveform Video
+                    </button>
+                    
+                    <div id="waveformProgress" class="progress-container" style="display: none;">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="waveformFill">0%</div>
+                        </div>
+                    </div>
+                    <div id="waveformLog" class="log-console"></div>
+                </div>
+            </div>
+            
+            <!-- Bulk Download Page -->
+            <div class="page" id="page-bulk" style="display: none;">
+                <div class="page-header">
+                    <h1>Bulk Download</h1>
+                    <p>Download multiple videos dari file teks</p>
+                </div>
+                
+                <div class="card">
+                    <div class="form-group">
+                        <label>Upload URL List (TXT)</label>
+                        <input type="file" id="bulkFile" accept=".txt" class="form-control">
+                        <small>Format: Satu URL per baris</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Download Type</label>
+                        <select id="bulkType" class="form-control">
+                            <option value="audio">Audio Only (MP3)</option>
+                            <option value="waveform">Audio + Waveform Video</option>
+                            <option value="video">Original Video (MP4)</option>
+                        </select>
+                    </div>
+                    
+                    <button id="bulkBtn" class="btn btn-primary" onclick="startBulkDownload()">
+                        <span class="btn-icon">📦</span>
+                        Start Bulk Download
+                    </button>
+                    
+                    <div id="bulkProgress" class="progress-container" style="display: none;">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="bulkFill">0%</div>
+                        </div>
+                    </div>
+                    <div id="bulkLog" class="log-console"></div>
+                </div>
+            </div>
+            
+            <!-- AV Tools Page -->
+            <div class="page" id="page-tools" style="display: none;">
+                <div class="page-header">
+                    <h1>Audio Video Tools</h1>
+                    <p>Edit, mix, dan proses audio video</p>
+                </div>
+                
+                <div class="tools-grid">
+                    <div class="tool-card" onclick="selectTool('replace')">
+                        <div class="tool-icon">🔄</div>
+                        <div class="tool-name">Replace Audio</div>
+                    </div>
+                    <div class="tool-card" onclick="selectTool('mix')">
+                        <div class="tool-icon">🎚️</div>
+                        <div class="tool-name">Mix Audio</div>
+                    </div>
+                    <div class="tool-card" onclick="selectTool('extract')">
+                        <div class="tool-icon">📤</div>
+                        <div class="tool-name">Extract Audio</div>
+                    </div>
+                    <div class="tool-card" onclick="selectTool('merge')">
+                        <div class="tool-icon">🔗</div>
+                        <div class="tool-name">Merge Videos</div>
+                    </div>
+                    <div class="tool-card" onclick="selectTool('trim')">
+                        <div class="tool-icon">✂️</div>
+                        <div class="tool-name">Trim Video</div>
+                    </div>
+                    <div class="tool-card" onclick="selectTool('scale')">
+                        <div class="tool-icon">📐</div>
+                        <div class="tool-name">Scale Video</div>
+                    </div>
+                    <div class="tool-card" onclick="selectTool('logo')">
+                        <div class="tool-icon">🏷️</div>
+                        <div class="tool-name">Add Logo</div>
+                    </div>
+                    <div class="tool-card" onclick="selectTool('watermark')">
+                        <div class="tool-icon">💧</div>
+                        <div class="tool-name">Watermark</div>
+                    </div>
+                </div>
+                
+                <div class="card" id="toolInputs" style="display: none;">
+                    <h3 id="toolTitle">Tool Configuration</h3>
+                    <div id="toolInputsContent"></div>
+                    <button class="btn btn-primary" onclick="processTool()">Process</button>
+                </div>
+                
+                <div id="toolsLog" class="log-console"></div>
+            </div>
+            
+            <!-- Recorder Page -->
+            <div class="page" id="page-record" style="display: none;">
+                <div class="page-header">
+                    <h1>Screen & Camera Recorder</h1>
+                    <p>Rekam layar, kamera, atau keduanya</p>
+                </div>
+                
+                <div class="card">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Recording Mode</label>
+                            <select id="recMode" class="form-control">
+                                <option value="screen">Screen Only</option>
+                                <option value="camera">Camera Only</option>
+                                <option value="dual">Screen + Camera</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Resolution</label>
+                            <select id="recResolution" class="form-control">
+                                <option value="1280x720">720p (1280x720)</option>
+                                <option value="1920x1080">1080p (1920x1080)</option>
+                                <option value="2560x1440">1440p (2560x1440)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Frame Rate</label>
+                            <select id="recFps" class="form-control">
+                                <option value="30">30 FPS</option>
+                                <option value="60">60 FPS</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="recorder-preview" id="recorderPreview" style="display: none;">
+                        <video id="previewVideo" autoplay muted></video>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button id="startRecordBtn" class="btn btn-danger" onclick="startRecording()">
+                            <span class="btn-icon">🔴</span>
+                            Start Recording
+                        </button>
+                        <button id="stopRecordBtn" class="btn btn-secondary" style="display: none;" onclick="stopRecording()">
+                            <span class="btn-icon">⏹️</span>
+                            Stop Recording
+                        </button>
+                    </div>
+                    
+                    <div id="recLog" class="log-console"></div>
+                </div>
+            </div>
+            
+            <!-- Transcribe Page -->
+            <div class="page" id="page-transcribe" style="display: none;">
+                <div class="page-header">
+                    <h1>Transcribe Subtitle</h1>
+                    <p>Buat subtitle otomatis dari audio/video</p>
+                </div>
+                
+                <div class="card">
+                    <div class="form-group">
+                        <label>Upload Audio/Video File</label>
+                        <input type="file" id="transcribeFile" accept="audio/*,video/*" class="form-control">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Language</label>
+                            <select id="transcribeLang" class="form-control">
+                                <option value="id">Indonesian</option>
+                                <option value="en">English</option>
+                                <option value="ja">Japanese</option>
+                                <option value="ko">Korean</option>
+                                <option value="zh">Chinese</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Model Size</label>
+                            <select id="transcribeModel" class="form-control">
+                                <option value="tiny">Tiny (Fast)</option>
+                                <option value="base" selected>Base (Recommended)</option>
+                                <option value="small">Small (Accurate)</option>
+                                <option value="medium">Medium (Very Accurate)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary" onclick="startTranscribe()">
+                        <span class="btn-icon">📝</span>
+                        Start Transcription
+                    </button>
+                    
+                    <div id="transcribeProgress" class="progress-container" style="display: none;">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="transcribeFill">0%</div>
+                        </div>
+                    </div>
+                    <div id="transcribeLog" class="log-console"></div>
+                    
+                    <div id="subtitleResult" style="display: none; margin-top: 20px;">
+                        <h3>Subtitle Preview</h3>
+                        <div id="subtitlePreview" class="subtitle-preview"></div>
+                        <button class="btn btn-secondary" onclick="downloadSubtitle()">Download SRT</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- TTS Page -->
+            <div class="page" id="page-tts" style="display: none;">
+                <div class="page-header">
+                    <h1>Text-to-Speech Synthesizer</h1>
+                    <p>Ubah teks menjadi suara natural</p>
+                </div>
+                
+                <div class="card">
+                    <div class="form-group">
+                        <label>Text to Convert</label>
+                        <textarea id="ttsText" rows="5" placeholder="Masukkan teks yang akan diubah menjadi suara..." class="form-control"></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Voice Type</label>
+                            <select id="ttsVoice" class="form-control">
+                                <option value="id-ID-ArdiNeural">Ardi (Indonesian - Male)</option>
+                                <option value="id-ID-GadisNeural">Gadis (Indonesian - Female)</option>
+                                <option value="en-US-JennyNeural">Jenny (English - Female)</option>
+                                <option value="en-US-GuyNeural">Guy (English - Male)</option>
+                                <option value="ja-JP-NanamiNeural">Nanami (Japanese)</option>
+                                <option value="ko-KR-SunHiNeural">SunHi (Korean)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Speed</label>
+                            <input type="range" id="ttsRate" min="0.5" max="2" step="0.1" value="1">
+                            <span id="rateValue">1.0x</span>
+                        </div>
+                        <div class="form-group">
+                            <label>Pitch</label>
+                            <input type="range" id="ttsPitch" min="0.5" max="2" step="0.1" value="1">
+                            <span id="pitchValue">1.0</span>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary" onclick="generateTTS()">
+                        <span class="btn-icon">🎙️</span>
+                        Generate Speech
+                    </button>
+                    
+                    <div id="ttsLog" class="log-console"></div>
+                    
+                    <div id="audioPlayer" style="display: none; margin-top: 20px;">
+                        <audio id="ttsAudio" controls style="width: 100%;"></audio>
+                        <button class="btn btn-secondary" onclick="downloadTTS()">Download MP3</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slideshow Page -->
+            <div class="page" id="page-slideshow" style="display: none;">
+                <div class="page-header">
+                    <h1>Image Slideshow Creator</h1>
+                    <p>Buat video slideshow dari gambar</p>
+                </div>
+                
+                <div class="card">
+                    <div class="form-group">
+                        <label>Select Images</label>
+                        <input type="file" id="slideshowImages" multiple accept="image/*" class="form-control">
+                        <div id="imagePreview" class="image-preview"></div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Duration per Image</label>
+                            <input type="number" id="imgDuration" value="3" step="0.5" min="1" class="form-control">
+                            <small>seconds</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Transition Effect</label>
+                            <select id="transitionEffect" class="form-control">
+                                <option value="fade">Fade</option>
+                                <option value="slide">Slide</option>
+                                <option value="zoom">Zoom</option>
+                                <option value="flip">Flip</option>
+                                <option value="glitch">Glitch</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Background Music (Optional)</label>
+                            <input type="file" id="slideshowBgm" accept="audio/*" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Output Resolution</label>
+                            <select id="slideshowRes" class="form-control">
+                                <option value="1280x720">720p (1280x720)</option>
+                                <option value="1920x1080" selected>1080p (1920x1080)</option>
+                                <option value="1080x1920">Shorts (1080x1920)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary" onclick="createSlideshow()">
+                        <span class="btn-icon">🎬</span>
+                        Create Slideshow
+                    </button>
+                    
+                    <div id="slideshowProgress" class="progress-container" style="display: none;">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="slideshowFill">0%</div>
+                        </div>
+                    </div>
+                    <div id="slideshowLog" class="log-console"></div>
+                </div>
+            </div>
+            
+            <!-- Settings Page -->
+            <div class="page" id="page-settings" style="display: none;">
+                <div class="page-header">
+                    <h1>Settings</h1>
+                    <p>Konfigurasi aplikasi</p>
+                </div>
+                
+                <div class="settings-section">
+                    <div class="settings-card">
+                        <h3>🎨 Visual Settings</h3>
+                        <div class="form-group">
+                            <label>Logo Text</label>
+                            <input type="text" id="logoText" value="READLOUD" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Logo Mode</label>
+                            <select id="logoMode" class="form-control">
+                                <option value="glow">Glow Effect</option>
+                                <option value="rainbow">Rainbow Animation</option>
+                                <option value="neon">Neon Pulse</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Default Background</label>
+                            <input type="file" id="defaultBg" accept="image/*,video/*" class="form-control">
+                        </div>
+                    </div>
+                    
+                    <div class="settings-card">
+                        <h3>⚙️ Processing Settings</h3>
+                        <div class="form-group">
+                            <label>Output Directory</label>
+                            <input type="text" id="outputDir" value="Videos/Exports" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Video Quality</label>
+                            <select id="videoQuality" class="form-control">
+                                <option value="fast">Fast (Smaller File)</option>
+                                <option value="balanced" selected>Balanced</option>
+                                <option value="high">High Quality (Larger File)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Max Parallel Downloads</label>
+                            <input type="number" id="parallelDownloads" value="3" min="1" max="10" class="form-control">
+                        </div>
+                    </div>
+                    
+                    <div class="settings-card">
+                        <h3>🔧 API Configuration</h3>
+                        <div class="form-group">
+                            <label>API Endpoint</label>
+                            <input type="text" id="apiEndpoint" value="/api" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>API Key (Optional)</label>
+                            <input type="password" id="apiKey" placeholder="Enter API key if required" class="form-control">
+                        </div>
+                        <button class="btn btn-primary" onclick="testConnection()">Test Connection</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
+```
+
+---
+
+## 2. File `style.css` - Styling
+
+```css
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
+    color: #ffffff;
+    min-height: 100vh;
+}
+
+/* App Container */
+.app-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 280px;
+    background: rgba(10, 10, 20, 0.95);
+    backdrop-filter: blur(10px);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+    z-index: 100;
+}
+
+.logo {
+    padding: 24px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-icon {
+    font-size: 32px;
+}
+
+.logo-text {
+    font-size: 20px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #00ff88, #00cc66);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.logo-text span {
+    font-size: 12px;
+    font-weight: 400;
+    color: #666;
+    display: block;
+}
+
+/* Navigation */
+.nav-menu {
+    flex: 1;
+    padding: 20px 0;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    color: #aaa;
+    text-decoration: none;
+    transition: all 0.2s;
+    border-left: 3px solid transparent;
+}
+
+.nav-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+}
+
+.nav-item.active {
+    background: linear-gradient(90deg, rgba(0, 255, 136, 0.1), transparent);
+    border-left-color: #00ff88;
+    color: #00ff88;
+}
+
+.nav-icon {
+    font-size: 20px;
+    width: 28px;
+}
+
+/* Sidebar Footer */
+.sidebar-footer {
+    padding: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.status-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #00ff88;
+    margin-bottom: 8px;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background: #00ff88;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.version {
+    font-size: 11px;
+    color: #555;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    margin-left: 280px;
+    padding: 30px;
+    min-height: 100vh;
+}
+
+/* Page Header */
+.page-header {
+    margin-bottom: 30px;
+}
+
+.page-header h1 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.page-header p {
+    color: #888;
+}
+
+/* Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: transform 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.stat-icon {
+    font-size: 40px;
+}
+
+.stat-info h3 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #00ff88;
+}
+
+.stat-info p {
+    font-size: 13px;
+    color: #888;
+}
+
+/* Cards */
+.card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card h3 {
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+/* Form Elements */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #ccc;
+    font-size: 13px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #00ff88;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #00ff88, #00cc66);
+    color: #0a0a1a;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 255, 136, 0.3);
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #ff4444, #cc0000);
+    color: white;
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.btn-icon {
+    font-size: 16px;
+}
+
+.button-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* Progress Bar */
+.progress-container {
+    margin-top: 20px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00ff88, #00cc66);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    transition: width 0.3s;
+}
+
+/* Log Console */
+.log-console {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 20px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.log-line {
+    color: #00ff88;
+    margin-bottom: 6px;
+    border-left: 2px solid #00ff88;
+    padding-left: 10px;
+}
+
+.log-line.error {
+    color: #ff4444;
+    border-left-color: #ff4444;
+}
+
+/* Tools Grid */
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.tool-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tool-card:hover {
+    background: rgba(0, 255, 136, 0.1);
+    transform: translateY(-2px);
+}
+
+.tool-icon {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.tool-name {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* Tab Buttons */
+.tab-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.tab-btn {
+    padding: 8px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: none;
+    border-radius: 8px;
+    color: #aaa;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tab-btn.active {
+    background: #00ff88;
+    color: #0a0a1a;
+}
+
+/* Recorder Preview */
+.recorder-preview {
+    margin-top: 20px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #000;
+}
+
+.recorder-preview video {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+}
+
+/* Image Preview */
+.image-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.preview-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+.preview-image.selected {
+    border-color: #00ff88;
+}
+
+/* Subtitle Preview */
+.subtitle-preview {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    padding: 15px;
+    max-height: 300px;
+    overflow-y: auto;
+    font-family: monospace;
+    font-size: 13px;
+}
+
+/* Settings Section */
+.settings-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 24px;
+}
+
+.settings-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 24px;
+}
+
+.settings-card h3 {
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #00ff88;
+}
+
+/* Recent Activity */
+.recent-section {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 16px;
+    padding: 20px;
+}
+
+.recent-section h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 10px;
+}
+
+.activity-icon {
+    font-size: 20px;
+}
+
+.activity-time {
+    margin-left: auto;
+    font-size: 11px;
+    color: #666;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 80px;
+    }
+    
+    .logo-text, .nav-item span:last-child, .sidebar-footer {
+        display: none;
+    }
+    
+    .main-content {
+        margin-left: 80px;
+    }
+    
+    .nav-item {
+        justify-content: center;
+        padding: 12px;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #00ff88;
+    border-radius: 3px;
+}
